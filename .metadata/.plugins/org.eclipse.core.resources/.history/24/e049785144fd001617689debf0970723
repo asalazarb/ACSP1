@@ -1,0 +1,10 @@
+package imageProcessing;
+
+public class Kittler implements Algorithm{
+	
+	public Image run{
+		Image image = new Image();
+		return image;
+	}
+
+}

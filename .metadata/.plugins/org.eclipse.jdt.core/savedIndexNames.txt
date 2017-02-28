@@ -7,7 +7,6 @@ INDEX VERSION 1.129+/Users/andressalazar/Desktop/ACSP1/.metadata/.plugins/org.ec
 2453379900.index
 2782194221.index
 2826013083.index
-781540845.index
 1294930193.index
 2179196179.index
 1241108903.index

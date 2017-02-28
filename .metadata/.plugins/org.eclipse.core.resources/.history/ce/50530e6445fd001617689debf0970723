@@ -1,0 +1,25 @@
+package imageProcessing;
+
+public class Graphic {
+
+	private String name;
+	private int objectCount;
+
+	public int getObjectCount() {
+		return objectCount;
+	}
+
+	public void setObjectCount(int objectCount) {
+		this.objectCount = objectCount;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+}

@@ -1,0 +1,6 @@
+package imageProcessing;
+
+public interface Algorithm {
+
+	public void run();
+}
