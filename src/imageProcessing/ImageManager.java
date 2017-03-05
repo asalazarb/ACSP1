@@ -19,6 +19,7 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.MatOfInt;
+import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 
@@ -125,8 +126,10 @@ public class ImageManager implements GraphicHandler{
 	        		bool 	accumulate = false 
 	        		)	*/
 	        Imgproc.calcHist(imageList, new MatOfInt(0),new Mat(), hist, histSize, histRange, accumulate);
-
-	        int hist_w = 512;
+	        
+	        
+	        Imgcodecs.imwrite("histogram.jpg", hist);
+	       /* int hist_w = 512;
 	        int hist_h = 600;
 	        long bin_w;
 	        bin_w = Math.round((double) (hist_w / 256));
@@ -139,9 +142,9 @@ public class ImageManager implements GraphicHandler{
 	         //hist.get(0, 0, data1);
 	         BufferedImage image1 = new BufferedImage(hist.cols(),hist.rows(), BufferedImage.TYPE_BYTE_GRAY);
 	         image1.getRaster().setDataElements(0, 0, hist.cols(), hist.rows(), data1);
-
+	         
 	         File ouptut = new File("histogram.jpg");
-	         ImageIO.write(image1, "jpg", ouptut);
+	         ImageIO.write(image1, "jpg", ouptut);*/
 
 	        
 		}
