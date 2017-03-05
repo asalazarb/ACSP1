@@ -74,7 +74,7 @@ public class ImageManager implements GraphicHandler{
 	         BufferedImage image1 = new BufferedImage(mat1.cols(),mat1.rows(), BufferedImage.TYPE_BYTE_GRAY);
 	         image1.getRaster().setDataElements(0, 0, mat1.cols(), mat1.rows(), data1);
 
-	         File ouptut = new File("grayscale.jpg");
+	         File ouptut = new File("grayscale2.jpg");
 	         ImageIO.write(image1, "jpg", ouptut);
 	         
 	      } catch (Exception e) {

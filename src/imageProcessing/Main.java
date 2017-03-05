@@ -6,8 +6,9 @@ public class Main {
 		
 		ImageManager controlador = new ImageManager();
 		
-		//controlador.ImagePixels("C:/Users/Daniel Montoya/Desktop/Proyecto1/celulas.png");
+		controlador.ImagePixels("testImages/celulas.png");
 		//controlador.GrayScaleConversion("testImages/celulas.png");
+		System.out.println("terminado");
 	}
 
 }
