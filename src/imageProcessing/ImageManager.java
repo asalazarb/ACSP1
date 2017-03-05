@@ -2,11 +2,14 @@ package imageProcessing;
 
 
 import java.awt.*;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -14,6 +17,8 @@ import javax.imageio.stream.ImageInputStream;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfFloat;
+import org.opencv.core.MatOfInt;
 import org.opencv.imgproc.Imgproc;
 
 
@@ -80,5 +85,70 @@ public class ImageManager implements GraphicHandler{
 	      } catch (Exception e) {
 	         System.out.println("Error: " + e.getMessage());
 	      }
+	}
+	
+	public void histogram(){
+		
+		try{
+	        System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
+	        File input = new File("testImages/celulas.png");
+	        BufferedImage image = ImageIO.read(input);
+		
+	
+	        byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
+	        Mat mat = new Mat(image.getHeight(), image.getWidth(), CvType.CV_8UC3);
+	        mat.put(0, 0, data);
+	
+	        Mat mat1 = new Mat(image.getHeight(),image.getWidth(),CvType.CV_8UC1);
+	        Imgproc.cvtColor(mat, mat1, Imgproc.COLOR_RGB2GRAY);
+	        
+	        ArrayList<Mat> imageList = new ArrayList<Mat>();
+	        imageList.add(mat1);
+	        MatOfInt histSize = new MatOfInt(256);
+
+
+	        final MatOfFloat histRange = new MatOfFloat(0f, 256f);
+
+	        boolean accumulate = false;
+
+	        Mat hist = new  Mat();
+	        
+	       /* calcHist	(	const Mat * 	images,
+	        		int 	nimages,
+	        		const int * 	channels,
+	        		InputArray 	mask,
+	        		OutputArray 	hist,
+	        		int 	dims,
+	        		const int * 	histSize,
+	        		const float ** 	ranges,
+	        		bool 	uniform = true,
+	        		bool 	accumulate = false 
+	        		)	*/
+	        Imgproc.calcHist(imageList, new MatOfInt(0),new Mat(), hist, histSize, histRange, accumulate);
+
+	        int hist_w = 512;
+	        int hist_h = 600;
+	        long bin_w;
+	        bin_w = Math.round((double) (hist_w / 256));
+
+	        Core.normalize(hist, hist, 3, hist.rows(), Core.NORM_MINMAX);
+
+
+
+	         byte[] data1 = new byte[hist.rows() * hist.cols() * (int)(hist.elemSize())];
+	         //hist.get(0, 0, data1);
+	         BufferedImage image1 = new BufferedImage(hist.cols(),hist.rows(), BufferedImage.TYPE_BYTE_GRAY);
+	         image1.getRaster().setDataElements(0, 0, hist.cols(), hist.rows(), data1);
+
+	         File ouptut = new File("histogram.jpg");
+	         ImageIO.write(image1, "jpg", ouptut);
+
+	        
+		}
+		
+		catch (Exception e){
+	        System.out.println("Error: " + e.getMessage());
+
+		}
 	}
 }

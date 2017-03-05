@@ -6,9 +6,10 @@ public class Main {
 		
 		ImageManager controlador = new ImageManager();
 		
-		controlador.ImagePixels("testImages/celulas.png");
+		//controlador.ImagePixels("testImages/celulas.png");
 		//controlador.GrayScaleConversion("testImages/celulas.png");
-		System.out.println("terminado");
+		controlador.histogram();
+		System.out.println("TERMINADO");
 	}
 
 }
