@@ -36,6 +36,12 @@ public class ImageManager implements GraphicHandler{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Carga una imagen y la transforma en matriz para luego recorrerla pixel por pixel.
+	 * En cada interación se recupera el valor RGB. 
+	 * @param  input_image Nombre/ruta del archivo.
+	 */
 	public void ImagePixels(String input_image)
 	{
 		
@@ -61,6 +67,13 @@ public class ImageManager implements GraphicHandler{
 	      } catch (Exception e) {}
 	}
 	
+	
+	/**
+	 * Carga una imagen y la transforma en matriz para transformarla en una imagen en escala de grises.
+	 * no hay valor de retorno pero en el directorio del proyecto se crea la nueva imagen.
+	 * En cada interación se recuperará el valor RGB. 
+	 * @param  input_image Nombre/ruta del archivo.
+	 */
 	public void GrayScaleConversion(String input_image)
 	{
 		try {
@@ -87,6 +100,10 @@ public class ImageManager implements GraphicHandler{
 	         System.out.println("Error: " + e.getMessage());
 	      }
 	}
+	
+	/**
+	 * Este método utiliza un archivo de la carpeta de imágenes de prueba para generar un histograma.
+	 */
 	
 	public void histogram(){
 		
