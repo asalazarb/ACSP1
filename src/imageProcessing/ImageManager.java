@@ -92,17 +92,9 @@ public class ImageManager implements GraphicHandler{
 	         int w = image1.getWidth();
 	         int h = image1.getHeight();
 	         
-	         for(int i=0; i<h; i++){
-		         
-		            for(int j=0; j<w; j++){
-		            
-		               java.awt.Color c = new java.awt.Color(image1.getRGB(i, j));
-		               int grayVal = (c.getBlue() + c.getRed() + c.getGreen()) / 3;
-		               if(grayVal != 0)
-		            	   System.out.println(grayVal);
-		            }
-		         }
-	         
+	         Image i = new Image("new",image1);
+	         i.generateHistogram();
+	         System.out.println(i.histogram.get(137));
 	         
 	         
 	      } catch (Exception e) {
