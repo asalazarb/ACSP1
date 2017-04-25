@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.color.*;
 
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
@@ -52,15 +53,15 @@ public class ImageManager implements GraphicHandler{
 	         int width = imagenL.getWidth();
 	         int height = imagenL.getHeight();
 	         
-	         int count = 0;
+	         
+	         int[][] buffer = new int [width][height];
 	         
 	         for(int i=0; i<height; i++){
 	         
 	            for(int j=0; j<width; j++){
 	            
-	               count++;
-	               Color c = new Color(imagenL.getRGB(j, i));
-	               System.out.println("Pixel #: " + count + " Red: " + c.getRed() +"  Green: " + c.getGreen() + " Blue: " + c.getBlue());
+	               buffer[i][j] = imagenL.getRGB( i, j );
+	               
 	            }
 	         }
 	         
@@ -81,20 +82,28 @@ public class ImageManager implements GraphicHandler{
 	         File input = new File(input_image);
 	         BufferedImage image = ImageIO.read(input);	
 
-	         byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-	         Mat mat = new Mat(image.getHeight(), image.getWidth(), CvType.CV_8UC3);
-	         mat.put(0, 0, data);
-
-	         Mat mat1 = new Mat(image.getHeight(),image.getWidth(),CvType.CV_8UC1);
-	         Imgproc.cvtColor(mat, mat1, Imgproc.COLOR_RGB2GRAY);
-
-	         byte[] data1 = new byte[mat1.rows() * mat1.cols() * (int)(mat1.elemSize())];
-	         mat1.get(0, 0, data1);
-	         BufferedImage image1 = new BufferedImage(mat1.cols(),mat1.rows(), BufferedImage.TYPE_BYTE_GRAY);
-	         image1.getRaster().setDataElements(0, 0, mat1.cols(), mat1.rows(), data1);
+	        
+	         BufferedImage image1 = new BufferedImage(image.getHeight(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+	         image1.getGraphics().drawImage(image, 0, 0, null);
 
 	         File ouptut = new File("grayscale2.jpg");
 	         ImageIO.write(image1, "jpg", ouptut);
+	         
+	         int w = image1.getWidth();
+	         int h = image1.getHeight();
+	         
+	         for(int i=0; i<h; i++){
+		         
+		            for(int j=0; j<w; j++){
+		            
+		               java.awt.Color c = new java.awt.Color(image1.getRGB(i, j));
+		               int grayVal = (c.getBlue() + c.getRed() + c.getGreen()) / 3;
+		               if(grayVal != 0)
+		            	   System.out.println(grayVal);
+		            }
+		         }
+	         
+	         
 	         
 	      } catch (Exception e) {
 	         System.out.println("Error: " + e.getMessage());
@@ -106,69 +115,16 @@ public class ImageManager implements GraphicHandler{
 	 */
 	
 	public void histogram(){
-		
-		try{
-	        System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
-	        File input = new File("testImages/celulas.png");
-	        BufferedImage image = ImageIO.read(input);
-		
-	
-	        byte[] data = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-	        Mat mat = new Mat(image.getHeight(), image.getWidth(), CvType.CV_8UC3);
-	        mat.put(0, 0, data);
-	
-	        Mat mat1 = new Mat(image.getHeight(),image.getWidth(),CvType.CV_8UC1);
-	        Imgproc.cvtColor(mat, mat1, Imgproc.COLOR_RGB2GRAY);
-	        
-	        ArrayList<Mat> imageList = new ArrayList<Mat>();
-	        imageList.add(mat1);
-	        MatOfInt histSize = new MatOfInt(256);
-
-
-	        final MatOfFloat histRange = new MatOfFloat(0f, 256f);
-
-	        boolean accumulate = false;
-
-	        Mat hist = new  Mat();
-	        
-	       /* calcHist	(	const Mat * 	images,
-	        		int 	nimages,
-	        		const int * 	channels,
-	        		InputArray 	mask,
-	        		OutputArray 	hist,
-	        		int 	dims,
-	        		const int * 	histSize,
-	        		const float ** 	ranges,
-	        		bool 	uniform = true,
-	        		bool 	accumulate = false 
-	        		)	*/
-	        Imgproc.calcHist(imageList, new MatOfInt(0),new Mat(), hist, histSize, histRange, accumulate);
-	        
-	        
-	        Imgcodecs.imwrite("histogram.jpg", hist);
-	       /* int hist_w = 512;
-	        int hist_h = 600;
-	        long bin_w;
-	        bin_w = Math.round((double) (hist_w / 256));
-
-	        Core.normalize(hist, hist, 3, hist.rows(), Core.NORM_MINMAX);
-
-
-
-	         byte[] data1 = new byte[hist.rows() * hist.cols() * (int)(hist.elemSize())];
-	         //hist.get(0, 0, data1);
-	         BufferedImage image1 = new BufferedImage(hist.cols(),hist.rows(), BufferedImage.TYPE_BYTE_GRAY);
-	         image1.getRaster().setDataElements(0, 0, hist.cols(), hist.rows(), data1);
-	         
-	         File ouptut = new File("histogram.jpg");
-	         ImageIO.write(image1, "jpg", ouptut);*/
-
-	        
+		System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
+	    File input = new File("testImages/celulas.png");
+	    try {
+			BufferedImage image = ImageIO.read(input);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
-		catch (Exception e){
-	        System.out.println("Error: " + e.getMessage());
+	
 
-		}
 	}
 }
