@@ -94,7 +94,6 @@ public class ImageManager implements GraphicHandler{
 	         
 	         Image i = new Image("new",image1);
 	         i.generateHistogram();
-	         System.out.println(i.histogram.get(137));
 	         
 	         
 	      } catch (Exception e) {

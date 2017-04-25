@@ -2,7 +2,8 @@ package imageProcessing;
 
 import java.awt.image.BufferedImage;
 import java.awt.*;
-import java.util.HashMap;;
+import java.util.HashMap;
+import java.math.BigDecimal;
 
 public class Image extends Graphic{
 
@@ -12,11 +13,13 @@ public class Image extends Graphic{
 	private String name;
 	BufferedImage image;
 	public HashMap<Integer, Integer> histogram;
+	public HashMap<Integer, Double> normHistogram;
 	
 	public Image(String pName, BufferedImage pImage){
 		this.image = pImage;
 		name = pName;
 		this.histogram = new HashMap<Integer, Integer>();
+		this.normHistogram = new HashMap<Integer, Double>();
 	}
 	
 	public Image(){}
@@ -83,5 +86,35 @@ public class Image extends Graphic{
                }
             }
          }
+		normalizeHistogram();
+	}
+	private void normalizeHistogram(){
+	
+		int n = 0;
+		String stringDecimal;
+		
+		
+		for(int value : histogram.values()){
+			n += value;
+		}
+		
+		for(int key : histogram.keySet()){
+			int keyVal = histogram.get(key);
+			double newVal = keyVal / (float)n;
+			
+			stringDecimal = String.format("%.7g%n", newVal);
+			if(stringDecimal.toLowerCase().contains("e")){
+				newVal = 0.0;
+			}
+			
+			else{
+				newVal = Double.parseDouble(stringDecimal);
+			}
+		
+			normHistogram.put(key, newVal);			
+		}
+		
+
+		
 	}
 }
