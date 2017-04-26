@@ -101,21 +101,7 @@ public class ImageManager implements GraphicHandler{
 	      }
 	}
 	
-	/**
-	 * Este método utiliza un archivo de la carpeta de imágenes de prueba para generar un histograma.
-	 */
-	
-	public void histogram(){
-		System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
-	    File input = new File("testImages/celulas.png");
-	    try {
-			BufferedImage image = ImageIO.read(input);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+
 	
 
-	}
 }

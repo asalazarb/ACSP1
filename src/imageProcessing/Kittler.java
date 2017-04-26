@@ -45,8 +45,6 @@ public class Kittler implements Algorithm{
 		double average = 0;
 		double sDeviation = 0;
 
-		
-
 		for(int z=a; z<b; z++){
 			p = p + histogram.get(t);
 			average += histogram.get(z) * z;
