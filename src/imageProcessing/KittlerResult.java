@@ -1,14 +1,22 @@
 package imageProcessing;
 
 public class KittlerResult {
-	private double t;
+	private double p;
 	private double average;
 	private double sdeviation;
-	public double getT() {
-		return t;
+	
+
+	
+	public KittlerResult(double p, double average, double sdeviation) {
+		this.p = p;
+		this.average = average;
+		this.sdeviation = sdeviation;
+	}
+	public double getP() {
+		return p;
 	}
 	public void setT(double t) {
-		this.t = t;
+		this.p = p;
 	}
 	public double getAverage() {
 		return average;

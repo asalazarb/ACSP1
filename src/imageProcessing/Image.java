@@ -10,6 +10,7 @@ public class Image extends Graphic{
 	private double t;
 	private double average;
 	private double sdeviation;
+	private double p;
 	private String name;
 	BufferedImage image;
 	public HashMap<Integer, Integer> histogram;
