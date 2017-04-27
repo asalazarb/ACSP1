@@ -75,7 +75,7 @@ public class ImageManager implements GraphicHandler{
 	 * En cada interación se recuperará el valor RGB. 
 	 * @param  input_image Nombre/ruta del archivo.
 	 */
-	public void GrayScaleConversion(String input_image)
+	public Image GrayScaleConversion(String input_image)
 	{
 		try {
 	         System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
@@ -83,25 +83,26 @@ public class ImageManager implements GraphicHandler{
 	         BufferedImage image = ImageIO.read(input);	
 
 	        
-	         BufferedImage image1 = new BufferedImage(image.getHeight(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+	         BufferedImage image1 = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 	         image1.getGraphics().drawImage(image, 0, 0, null);
 
-	         File ouptut = new File("grayscale2.jpg");
-	         ImageIO.write(image1, "jpg", ouptut);
 	         
-	         int w = image1.getWidth();
-	         int h = image1.getHeight();
-	         
-	         Image i = new Image("new",image1);
-	         i.generateHistogram();
+	         Image i = new Image(input_image,image1);
 	         
 	         
+	         return i;
 	      } catch (Exception e) {
 	         System.out.println("Error: " + e.getMessage());
 	      }
+		return null;
 	}
 	
 
-	
+	public Image createImage(String input_image){
+		Image newImage = GrayScaleConversion(input_image);
+		newImage.generateHistogram();
+		//agregar a lista
+		return newImage;
+	}
 
 }

@@ -21,6 +21,7 @@ public class Image extends Graphic{
 		name = pName;
 		this.histogram = new HashMap<Integer, Integer>();
 		this.normHistogram = new HashMap<Integer, Double>();
+		
 	}
 	
 	public Image(){}
@@ -73,8 +74,9 @@ public class Image extends Graphic{
 	         
             for(int j=0; j<image.getWidth(); j++){
             
-               Color color = new Color(image.getRGB(i, j));
+               Color color = new Color(image.getRGB(j, i));
                int grayValue = getGrayValue(color);
+               
                
                if(histogram.containsKey(grayValue)){
             	   int value = histogram.get(grayValue);
@@ -115,7 +117,6 @@ public class Image extends Graphic{
 			normHistogram.put(key, newVal);			
 		}
 		
-
 		
 	}
 }

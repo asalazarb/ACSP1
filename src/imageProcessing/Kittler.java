@@ -11,12 +11,17 @@ public class Kittler implements Algorithm{
 	
 	public void kittler(Image image){
 		double minJ = 999999.99;
-		for(int t=0; t < 256; t++){
-			double temp = J(t, image);
-			if(temp < minJ){
+
+		
+		for(int t : image.normHistogram.keySet()){
+			
+			double temp = J(t,image);
+			
+			if(temp < minJ && temp >= 0){
 				minJ = temp;
 			}
 		}
+
 		image.setT(minJ);
 	}
 	
@@ -46,14 +51,18 @@ public class Kittler implements Algorithm{
 		double sDeviation = 0;
 
 		for(int z=a; z<b; z++){
-			p = p + histogram.get(t);
-			average += histogram.get(z) * z;
+			if(histogram.containsKey(z)){
+				p = p + histogram.get(t);
+				average += histogram.get(z) * z;
+			}
 		}
 		
 		average = average / p;
 		
 		for(int z=a; z<b; z++){
-			sDeviation += histogram.get(z) * Math.pow((z - average), 2);
+			if(histogram.containsKey(z)){
+				sDeviation += histogram.get(z) * Math.pow((z - average), 2);
+			}
 		}
 		
 		KittlerResult parameters = new KittlerResult(p, average, (sDeviation / p));
