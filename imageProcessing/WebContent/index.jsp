@@ -75,7 +75,7 @@ li a:hover:not(.active) {
 <br>
 <br>
 <form name ="imagenForm" method="post" action="imageServlet">
-Ruta: <input type= "text" name="ruta" /> 
+Ruta: <input type= "file" name="ruta" /> 
 <br/>
 <br/>
 <br/>
