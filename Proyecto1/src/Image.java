@@ -105,7 +105,7 @@ public class Image extends Graphic{
 			double newVal = keyVal / (float)n;
 			
 			stringDecimal = String.format("%.7g%n", newVal);
-			System.out.println(stringDecimal);
+			//System.out.println(stringDecimal);
 			if(stringDecimal.toLowerCase().contains("e")){
 				newVal = 0.0;
 			}

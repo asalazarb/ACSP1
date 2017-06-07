@@ -50,7 +50,8 @@ public class ProcesoArchivo extends HttpServlet {
 		Part arch = request.getPart("archivo");
 		InputStream is = arch.getInputStream();
 		//File f = new File("C:/Users/Daniel Montoya/Desktop/archivos/"+nomb);
-		File f = new File("C:/Users/Daniel Montoya/Desktop/Proyecto 1 aseguramiento de la calidad del software/Proyecto1/galeria/"+nomb);
+		//File f = new File("C:/Users/Daniel Montoya/Desktop/Proyecto 1 aseguramiento de la calidad del software/Proyecto1/galeria/"+nomb);
+		File f = new File("C:/Users/pc/Desktop/Andrés/ACSP1/Proyecto1/galeria/"+nomb);
 		FileOutputStream ous = new FileOutputStream(f);
 		
 		int dato = is.read();

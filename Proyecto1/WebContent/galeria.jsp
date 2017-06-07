@@ -85,7 +85,7 @@ li a:hover:not(.active) {
   
   <div class="img">
     <a target="_blank" href="testImages/img1.png">
-      <img src="testImages/img1.png" alt="" width="300" height="200">
+      <img src="Proyecto1/testImages/img1.png" alt="" width="300" height="200">
     </a>
     <div class="desc">Descripción</div>
   </div>
@@ -93,7 +93,7 @@ li a:hover:not(.active) {
 
   <div class="img">
     <a target="_blank" href="testImages/img2.png">
-      <img src="testImages/img2.png" alt="" width="600" height="400">
+      <img src="../testImages/img2.png" alt="" width="600" height="400">
     </a>
     <div class="desc">Descripción</div>
   </div>
