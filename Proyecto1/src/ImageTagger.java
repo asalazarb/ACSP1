@@ -7,6 +7,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class ImageTagger implements GraphicHandler{
+	
+	public static int[] colors = {Color.BLUE.getRGB(), Color.CYAN.getRGB(), Color.GREEN.getRGB(), Color.ORANGE.getRGB(),
+								  Color.RED.getRGB(), Color.YELLOW.getRGB()};
+	public static int numberColors = 6;
+	public static int procImages = 0;
 
 	@Override
 	public Graphic open(String name) {
@@ -49,14 +54,16 @@ public class ImageTagger implements GraphicHandler{
         colorImage.getGraphics().drawImage(buffImage, 0, 0, null);
 		image.setImage(colorImage);
         tagImage(image);
-		saveImage(colorImage);
+		saveImage(image.getImage());
 	}
 	
 	private boolean pixel(Image image, int x, int y, int w, int h){
 		
 		if(x >= 0 && y >= 0 && x < w && y < h){
 			Color color = new Color(image.getImage().getRGB(x, y));
+			
 			if(image.getGrayValue(color) == 255){
+				
 				return true;
 			}
 		}
@@ -86,18 +93,7 @@ public class ImageTagger implements GraphicHandler{
 		if(pixel(image, W, y, w, h)){
 			return true;
 		}
-		if(pixel(image, N, E, w, h)){
-			return true;
-		}
-		if(pixel(image, N, W, w, h)){
-			return true;
-		}
-		if(pixel(image, S, E, w, h)){
-			return true;
-		}
-		if(pixel(image, S, W, w, h)){
-			return true;
-		}
+
 		
 		return false;
 		
@@ -118,9 +114,9 @@ public class ImageTagger implements GraphicHandler{
 	            grayValue = image.getGrayValue(color);
 				if(grayValue == 0){
 					if(nextPixels(image, j, i, w, h)){
-						System.out.println("color");
-					
-						buffImage.setRGB(j, i, Color.GREEN.getRGB());
+						int newColor = 0 + (int)(Math.random() * (((this.numberColors-1) - 0) + 1));
+						
+						buffImage.setRGB(j, i, colors[newColor]);
 					}
 				}
 				
@@ -130,7 +126,7 @@ public class ImageTagger implements GraphicHandler{
 	
 	public void saveImage(BufferedImage image){
 		System.out.println("Guardado");
-		File output = new File("C:/Users/pc/Desktop/Andrés/ACSP1/Proyecto1/resultados/saved4.jpg");
+		File output = new File("C:/Users/pc/Desktop/Andrés/ACSP1/Proyecto1/resultados/image" +this.procImages + ".jpg");
 		
 		
 	    try {
